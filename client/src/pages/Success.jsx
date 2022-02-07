@@ -7,10 +7,10 @@ const Success = () => {
   const location = useLocation();
   //in Cart.jsx I sent data and cart. Please check that page for the changes.(in video it's only data)
   const data = location.state.stripeData;
-  const cart = location.state.cart;
+  const cart = location.state.products;
   const currentUser = useSelector((state) => state.user.currentUser);
   const [orderId, setOrderId] = useState(null);
-
+  console.log("order cart! ", cart);
   useEffect(() => {
     const createOrder = async () => {
       try {
@@ -22,7 +22,12 @@ const Success = () => {
           })),
           amount: cart.total,
           address: data.billing_details.address,
+        },{
+          "headers":{
+            token:"Bearer "+currentUser.accessToken,
+          }
         });
+        console.log("order create! ", res);
         setOrderId(res.data._id);
       } catch {}
     };

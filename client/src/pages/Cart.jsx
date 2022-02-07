@@ -161,6 +161,7 @@ const SummaryItemPrice = styled.span``;
 // `;
 
 const Cart = () => {
+
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
@@ -255,7 +256,7 @@ const Cart = () => {
               description={`Your total is $${cart.total}`}
               amount={cart.total * 100}
               token={onToken}
-              stripeKey={KEY}
+              stripeKey={process.env.REACT_APP_STRIPE}
             >
               <Button variant="contained" style={{backgroundColor:"#557A95"}}>CHECKOUT NOW</Button>
             </StripeCheckout>
